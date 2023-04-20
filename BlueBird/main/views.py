@@ -15,7 +15,7 @@ from .forms import RoomForm
 def index(request):
     #return HttpResponse("<h1> Response from views.py </h1>")
     q = request.GET.get('q') if request.GET.get('q') != None else ''
-    rooms = Room.objects.filter(topic__name__icontains = q)
+    rooms = Room.objects.filter(topic__name__contains = q)
     topics = Topic.objects.all()
     context = {'rooms':rooms, 'topics': topics}
     return render(request, 'home.html', context)
