@@ -13,9 +13,12 @@
     <div>
         <h3>Browse Topics </h3>
         <hr>
+        <div>
+            <a href="{% url 'index' %}"> All</a>
+        </div>
         {% for topic in topics %}
             <div>
-                <a href="{% url 'index' %}?={{topic.name}}"> {{topic.name}}</a>
+                <a href="{% url 'index' %}?q={{topic.name}}"> {{topic.name}}</a>
             </div>
         {% endfor %}
 </div>
