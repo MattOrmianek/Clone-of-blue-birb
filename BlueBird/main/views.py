@@ -17,8 +17,9 @@ def index(request):
     #return HttpResponse("<h1> Response from views.py </h1>")
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     rooms = Room.objects.filter(Q(topic__name__contains = q) | Q(name__icontains = q) | Q(description__icontains = q))
+    room_count = rooms.count()
     topics = Topic.objects.all()
-    context = {'rooms':rooms, 'topics': topics}
+    context = {'rooms':rooms, 'topics': topics, 'room_count': room_count}
     return render(request, 'home.html', context)
 
 def room(request, pk):
