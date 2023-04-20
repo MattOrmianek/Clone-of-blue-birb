@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
 # Create your views here.
 
@@ -15,7 +15,8 @@ from .forms import RoomForm
 def index(request):
     #return HttpResponse("<h1> Response from views.py </h1>")
     rooms = Room.objects.all()
-    context = {'rooms':rooms}
+    topics = Topic.objects.all()
+    context = {'rooms':rooms, 'topics': topics}
     return render(request, 'home.html', context)
 
 def room(request, pk):
