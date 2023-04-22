@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.db.models import Q
 from .models import Room, Topic
 from .forms import RoomForm
+from django.contrib.auth.models import User
+from django.contrib import messages
 # Create your views here.
 
 #rooms = [
@@ -12,6 +14,16 @@ from .forms import RoomForm
 #    {'id': 4, 'name': 'Fourth room'}
 #]
 
+def loginPage(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        try:
+            user = User.objects.get(username = username)
+        except:
+            messages.error(request, "User does not exist.")
+    context = {}
+    return render(request, 'login.html', context)
 
 def index(request):
     #return HttpResponse("<h1> Response from views.py </h1>")
