@@ -51,6 +51,10 @@ def registerUser(request):
             user = form.save(commit = False)
             user.username = user.username.lower()
             user.save()
+            login(request, user)
+            return redirect('home.html')
+        else:
+            messages.error(request, "An error occured during registartion.")
 
     return render(request, 'login.html', context)
 
