@@ -23,7 +23,7 @@ def loginPage(request):
         return redirect('/')
 
     if request.method == 'POST':
-        username = request.POST.get("username")
+        username = request.POST.get("username").lower()
         password = request.POST.get("password")
         try:
             user = User.objects.get(username = username)
@@ -45,6 +45,13 @@ def logoutUser(request):
 def registerUser(request):
     form = UserCreationForm
     context = {'form': form}
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit = False)
+            user.username = user.username.lower()
+            user.save()
+
     return render(request, 'login.html', context)
 
 def index(request):
