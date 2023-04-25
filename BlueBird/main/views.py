@@ -8,14 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
-# Create your views here.
-
-#rooms = [
-#    {'id': 1, 'name': 'First room'},
-#    {'id': 2, 'name': 'Second room'},
-#    {'id': 3, 'name': 'Third room'},
-#    {'id': 4, 'name': 'Fourth room'}
-#]
 
 def loginPage(request):
     page = 'login'
@@ -59,7 +51,6 @@ def registerUser(request):
     return render(request, 'login.html', context)
 
 def index(request):
-    #return HttpResponse("<h1> Response from views.py </h1>")
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     rooms = Room.objects.filter(Q(topic__name__contains = q) | Q(name__icontains = q) | Q(description__icontains = q))
     room_count = rooms.count()
@@ -68,7 +59,6 @@ def index(request):
     return render(request, 'home.html', context)
 
 def room(request, pk):
-    #return HttpResponse('ROOM')
     room_number = Room.objects.get(id = pk)
     context = {'room': room_number}
     return render(request, 'room.html', context)
@@ -77,7 +67,6 @@ def room(request, pk):
 def create_room(request):
     form = RoomForm()
     if request.method == 'POST':
-        #print(request.POST)
         form = RoomForm(request.POST)
         if form.is_valid():
             form.save()
